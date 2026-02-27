@@ -27,4 +27,41 @@ public class ContactController {
         }
     }
 
+    @GetMapping("/admin")
+    public ResponseEntity<List<ContactResponseDto>> fetchNewContactMsgs() {
+        List<ContactResponseDto> contactResponseDtos = contactService.fetchNewContactMsgs();
+        return ResponseEntity.status(HttpStatus.OK).body(contactResponseDtos);
+    }
+
+    @GetMapping("/sort/admin")
+    public ResponseEntity<List<ContactResponseDto>> fetchNewContactMsgsWithSort(
+            @RequestParam(defaultValue = "createdAt") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        List<ContactResponseDto> contactResponseDtos = contactService
+                .fetchNewContactMsgsWithSort(sortBy, sortDir);
+        return ResponseEntity.status(HttpStatus.OK).body(contactResponseDtos);
+    }
+
+    @GetMapping("/page/admin")
+    public ResponseEntity<Page<ContactResponseDto>> fetchNewContactMsgsWithPaginationAndSort(
+            @RequestParam(defaultValue = "0") int pageNumber,
+            @RequestParam(defaultValue = "10") int pageSize,
+            @RequestParam(defaultValue = "createdAt") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        Page<ContactResponseDto> contactResponseDtoPage = contactService
+                .fetchNewContactMsgsWithPaginationAndSort(pageNumber, pageSize, sortBy, sortDir);
+        return ResponseEntity.status(HttpStatus.OK).body(contactResponseDtoPage);
+    }
+
+    @PatchMapping("/{id}/status/admin")
+    public ResponseEntity<String> closeContactMsg(@PathVariable String id) {
+        boolean isUpdated = contactService.closeContactMsg(Long.valueOf(id),
+                ApplicationConstants.CLOSED_MESSAGE);
+        if (isUpdated) {
+            return ResponseEntity.status(HttpStatus.OK).body("Contact message updated successfully.");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to update contact message.");
+        }
+    }
+
 }
