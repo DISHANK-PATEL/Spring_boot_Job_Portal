@@ -1,4 +1,4 @@
-package com.eazybytes.jobportal.repository;
+package com.dishank.jobportal.repository;
 
 import com.dishank.jobportal.entity.Company;
 import com.dishank.jobportal.entity.Job;
