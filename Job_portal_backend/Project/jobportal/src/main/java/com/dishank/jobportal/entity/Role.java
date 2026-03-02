@@ -31,3 +31,4 @@ public class Role extends BaseEntity {
     @NotNull
     @Column(name = "name", nullable = false, length = 50)
     private String name;
+}

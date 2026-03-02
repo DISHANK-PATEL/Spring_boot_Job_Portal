@@ -1,4 +1,4 @@
-package com.dishank.jobportal.security;
+package com.dishank.jobportal.security.util;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
